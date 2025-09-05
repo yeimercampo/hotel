@@ -1,0 +1,184 @@
+¡Excelente decisión! 🚀
+Con **PostgreSQL + React (frontend) + FastAPI (backend en Python)** tienes un stack moderno, escalable y con buen soporte. Te dejo un plan **completo y detallado** para que avances paso a paso:
+
+---
+
+# 📘 Documento de Desarrollo – Sistema de Gestión Hotelera
+
+## 🔹 1. Arquitectura General
+
+```txt
+React (Frontend - Web)
+     |
+     | HTTP/JSON (Axios/Fetch)
+     v
+FastAPI (Backend - Python)
+     |
+     | SQLAlchemy ORM
+     v
+PostgreSQL (Base de Datos)
+```
+
+* **Frontend (React):**
+
+  * UI en React + TailwindCSS.
+  * Manejo de estado global con Context API o Redux.
+  * Consumo de API REST vía Axios.
+  * Recharts para gráficas en reportes.
+  * Autenticación con JWT almacenado en `localStorage`.
+
+* **Backend (FastAPI):**
+
+  * Endpoints REST organizados por módulo (`usuarios`, `habitaciones`, etc.).
+  * Seguridad: JWT (`python-jose`), contraseñas en hash (`bcrypt`).
+  * ORM: SQLAlchemy + Alembic (migraciones).
+  * Validación de datos: Pydantic.
+
+* **Base de Datos (PostgreSQL):**
+
+  * Tablas: `usuarios`, `habitaciones`, `huespedes`, `ocupaciones`, `productos`, `ventas_productos`, `egresos`.
+  * Cliente recomendado: **DBeaver** (más práctico que pgAdmin).
+
+---
+
+## 🔹 2. Requisitos Funcionales
+
+1. **Usuarios:** login, roles (admin/empleado), CRUD usuarios (admin).
+2. **Habitaciones:** CRUD, gestión de estados, precio por noche, foto.
+3. **Huéspedes:** registro, historial.
+4. **Ocupaciones:** check-in/out, relación habitación–huésped–usuario.
+5. **Productos:** CRUD, stock.
+6. **Ventas de productos:** registro, relación con habitación y usuario.
+7. **Egresos:** registro, clasificación, relación con usuario.
+8. **Informes:** ingresos habitaciones, ingresos productos, balance (ingresos – egresos).
+
+---
+
+## 🔹 3. Sprints Detallados
+
+### ✅ Sprint 1 – Fundamentos (Semana 1–2)
+
+**Backend:**
+
+* Configurar FastAPI + PostgreSQL.
+* Modelos SQLAlchemy para `usuarios`, `habitaciones`, `productos`.
+* Endpoints CRUD básicos.
+* Autenticación JWT.
+
+**Frontend:**
+
+* Login con roles.
+* Dashboard inicial.
+* CRUD habitaciones y productos.
+
+---
+
+### ✅ Sprint 2 – Operación Hotelera (Semana 3–4)
+
+**Backend:**
+
+* Modelos y endpoints de `huespedes`, `ocupaciones`, `ventas_productos`.
+* Lógica de check-in/check-out (actualiza estado habitación).
+* Actualización automática de stock en ventas.
+
+**Frontend:**
+
+* Formulario registro de huéspedes.
+* Vista de ocupaciones (habitaciones por estado).
+* Formulario de ventas.
+
+---
+
+### ✅ Sprint 3 – Finanzas e Informes (Semana 5–6)
+
+**Backend:**
+
+* Endpoints de `egresos`.
+* Consultas para reportes: ingresos habitaciones, ingresos productos, balance.
+
+**Frontend:**
+
+* Dashboard con gráficas (Recharts).
+* Filtros por fechas.
+* Exportar a PDF (jspdf) y Excel (SheetJS).
+
+---
+
+## 🔹 4. Endpoints por Módulo
+
+### Usuarios
+
+* `POST /auth/login` → login, devuelve JWT.
+* `POST /usuarios` → crear usuario (admin).
+* `GET /usuarios` → listar.
+* `PUT /usuarios/{id}` → actualizar.
+* `DELETE /usuarios/{id}` → eliminar.
+
+### Habitaciones
+
+* `POST /habitaciones` → crear.
+* `GET /habitaciones` → listar todas.
+* `PUT /habitaciones/{id}` → actualizar.
+* `DELETE /habitaciones/{id}` → eliminar.
+
+### Huéspedes
+
+* `POST /huespedes`
+* `GET /huespedes`
+* `PUT /huespedes/{id}`
+* `DELETE /huespedes/{id}`
+
+### Ocupaciones
+
+* `POST /ocupaciones` → check-in.
+* `PUT /ocupaciones/{id}/checkout` → check-out.
+* `GET /ocupaciones/activas`
+* `GET /ocupaciones/historico`
+
+### Productos
+
+* `POST /productos`
+* `GET /productos`
+* `PUT /productos/{id}`
+* `DELETE /productos/{id}`
+
+### Ventas
+
+* `POST /ventas`
+* `GET /ventas`
+
+### Egresos
+
+* `POST /egresos`
+* `GET /egresos`
+* `GET /egresos?fecha=2025-09-05`
+
+### Reportes
+
+* `GET /reportes/ingresos-habitaciones`
+* `GET /reportes/ingresos-productos`
+* `GET /reportes/egresos`
+* `GET /reportes/balance`
+
+---
+
+## 🔹 5. Tecnologías recomendadas
+
+* **Frontend:**
+
+  * React, TailwindCSS, Axios, Recharts, SheetJS, jsPDF.
+
+* **Backend:**
+
+  * FastAPI, SQLAlchemy, Alembic, python-jose, bcrypt, Pydantic.
+
+* **Base de Datos:**
+
+  * PostgreSQL 15.
+  * Cliente: DBeaver.
+
+---
+
+✅ Con esto ya tienes **todo el plan de requisitos, sprints, endpoints y stack** para tu proyecto.
+
+¿Quieres que te genere ahora un **DER (diagrama entidad-relación)** para PostgreSQL con todas las tablas y sus relaciones, listo para usar en DBeaver?
