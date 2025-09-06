@@ -16,31 +16,39 @@ La arquitectura recomendada es:
 React (Frontend) → FastAPI (Backend) → PostgreSQL (Base de datos)
 ```
 
-## Dependencias necesarias
+## Dependencias
 
-Instala las siguientes dependencias en tu entorno Python para el backend:
+### Dependencias esenciales
+Estas son necesarias para el funcionamiento básico del backend:
 
 - **fastapi**: Framework para construir APIs rápidas y seguras.
 - **uvicorn**: Servidor ASGI para ejecutar FastAPI.
 - **sqlalchemy**: ORM para la gestión de la base de datos.
-- **alembic**: Migraciones de base de datos.
 - **psycopg2-binary**: Driver para conectar con PostgreSQL.
-- **python-jose**: Manejo de JWT para autenticación.
-- **bcrypt**: Hash de contraseñas.
-- **pydantic**: Validación de datos.
 - **python-dotenv**: Manejo de variables de entorno.
 
-Instala todo con el siguiente comando:
+### Dependencias adicionales (opcionales)
+Para funcionalidades avanzadas como autenticación JWT, migraciones de base de datos, etc.:
 
-```bash
-pip install fastapi uvicorn sqlalchemy alembic psycopg2-binary python-jose bcrypt pydantic python-dotenv
-```
+- **pydantic**: Validación de datos (incluido automáticamente con FastAPI).
+- **python-jose**: Manejo de JWT para autenticación.
+- **bcrypt**: Hash de contraseñas.
+- **alembic**: Migraciones de base de datos.
+- **passlib**: Librería adicional para hash de contraseñas.
 
-O si tienes un archivo `requirements.txt`:
+Instala las dependencias con el siguiente comando:
 
 ```bash
 pip install -r requirements.txt
 ```
+
+O instala manualmente las dependencias esenciales:
+
+```bash
+pip install fastapi uvicorn sqlalchemy psycopg2-binary python-dotenv
+```
+
+Para funcionalidades adicionales como JWT, instala las dependencias opcionales cuando sea necesario.
 
 ## Recomendaciones adicionales
 
