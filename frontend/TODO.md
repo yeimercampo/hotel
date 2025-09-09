@@ -1,0 +1,10 @@
+- [x] Remove @tailwind directives from index.css
+- [x] Update Login.js to remove Tailwind classes and add CSS styles
+- [x] Update postcss.config.js to remove tailwindcss plugin
+- [x] Delete tailwind.config.js
+- [x] Uninstall Tailwind packages from package.json
+- [x] Fix backend habitaciones route import issue
+- [x] Remove foto column from model and schema to match database
+- [x] Update Dashboard to display rooms as cards with status
+- [x] Add click functionality to show room details
+- [x] Skip tests as per user request

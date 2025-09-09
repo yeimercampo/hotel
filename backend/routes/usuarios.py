@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from backend.models.usuario import Usuario
 from backend.database import get_db
-from backend.schemas.usuario import UsuarioCreate, UsuarioUpdate, Usuario
+from backend.schemas.usuario import UsuarioCreate, UsuarioUpdate, Usuario, UsuarioLogin, UsuarioResponse
 from typing import List
 
 router = APIRouter()
@@ -39,3 +39,21 @@ def eliminar_usuario(id: int, db: Session = Depends(get_db)):
     db.delete(db_usuario)
     db.commit()
     return {"ok": True}
+
+from fastapi.middleware.cors import CORSMiddleware
+
+@router.post("/usuarios/login", response_model=UsuarioResponse)
+def login_usuario(login_data: UsuarioLogin, db: Session = Depends(get_db)):
+    from backend.models.usuario import Usuario as UsuarioModel
+    db_usuario = db.query(UsuarioModel).filter(UsuarioModel.correo == login_data.correo).first()
+    if not db_usuario or db_usuario.contrasena != login_data.contrasena:
+        raise HTTPException(status_code=400, detail="Credenciales inválidas")
+    # Return only user data without password by creating a copy and setting contrasena to None
+    user_data = db_usuario.__dict__.copy()
+    user_data['contrasena'] = None
+    return user_data
+
+# Add CORS middleware to allow frontend requests
+# Removed import of app and CORS middleware setup here to avoid circular import
+
+# CORS middleware should be added in backend/main.py instead

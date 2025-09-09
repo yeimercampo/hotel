@@ -1,27 +1,27 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from backend.models.habitacion import Habitacion
+from backend.models.habitacion import Habitacion as HabitacionModel
 from backend.database import get_db
-from backend.schemas.habitacion import HabitacionCreate, HabitacionUpdate, Habitacion
+from backend.schemas.habitacion import HabitacionCreate, HabitacionUpdate, Habitacion as HabitacionSchema
 from typing import List
 
 router = APIRouter()
 
-@router.post("/habitaciones", response_model=Habitacion)
+@router.post("/habitaciones", response_model=HabitacionSchema)
 def crear_habitacion(habitacion: HabitacionCreate, db: Session = Depends(get_db)):
-    nueva_habitacion = Habitacion(**habitacion.model_dump())
+    nueva_habitacion = HabitacionModel(**habitacion.model_dump())
     db.add(nueva_habitacion)
     db.commit()
     db.refresh(nueva_habitacion)
     return nueva_habitacion
 
-@router.get("/habitaciones", response_model=List[Habitacion])
+@router.get("/habitaciones", response_model=List[HabitacionSchema])
 def listar_habitaciones(db: Session = Depends(get_db)):
-    return db.query(Habitacion).all()
+    return db.query(HabitacionModel).all()
 
-@router.put("/habitaciones/{id}", response_model=Habitacion)
+@router.put("/habitaciones/{id}", response_model=HabitacionSchema)
 def actualizar_habitacion(id: int, habitacion: HabitacionUpdate, db: Session = Depends(get_db)):
-    db_habitacion = db.query(Habitacion).filter(Habitacion.id == id).first()
+    db_habitacion = db.query(HabitacionModel).filter(HabitacionModel.id == id).first()
     if not db_habitacion:
         raise HTTPException(status_code=404, detail="Habitación no encontrada")
     update_data = habitacion.model_dump(exclude_unset=True)
@@ -33,7 +33,7 @@ def actualizar_habitacion(id: int, habitacion: HabitacionUpdate, db: Session = D
 
 @router.delete("/habitaciones/{id}")
 def eliminar_habitacion(id: int, db: Session = Depends(get_db)):
-    db_habitacion = db.query(Habitacion).filter(Habitacion.id == id).first()
+    db_habitacion = db.query(HabitacionModel).filter(HabitacionModel.id == id).first()
     if not db_habitacion:
         raise HTTPException(status_code=404, detail="Habitación no encontrada")
     db.delete(db_habitacion)

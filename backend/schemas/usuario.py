@@ -17,8 +17,22 @@ class UsuarioUpdate(BaseModel):
     contrasena: Optional[str] = None
     rol: Optional[str] = None
 
+class UsuarioLogin(BaseModel):
+    correo: EmailStr
+    contrasena: str
+
 class Usuario(UsuarioBase):
     id: int
+    fecha_creacion: datetime
+
+    class Config:
+        from_attributes = True
+
+class UsuarioResponse(BaseModel):
+    id: int
+    nombre: str
+    correo: EmailStr
+    rol: str
     fecha_creacion: datetime
 
     class Config:
