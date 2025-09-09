@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './Dashboard.css';
 
 const Dashboard = () => {
   const [habitaciones, setHabitaciones] = useState([]);
@@ -34,40 +35,34 @@ const Dashboard = () => {
 
   if (selectedRoom) {
     return (
-      <div style={{ padding: '20px' }}>
-        <button onClick={() => setSelectedRoom(null)} style={{ marginBottom: '20px' }}>Volver</button>
-        <h2>Habitación {selectedRoom.numero}</h2>
-        <p><strong>Número:</strong> {selectedRoom.numero}</p>
-        <p><strong>Tipo:</strong> {selectedRoom.tipo || 'N/A'}</p>
-        <p><strong>Descripción:</strong> {selectedRoom.descripcion || 'N/A'}</p>
-        <p><strong>Estado:</strong> {selectedRoom.estado}</p>
-        {selectedRoom.foto ? (
-          <img src={selectedRoom.foto} alt={`Habitación ${selectedRoom.numero}`} style={{ maxWidth: '400px', width: '100%', borderRadius: '8px' }} />
-        ) : (
-          <p>No hay imagen disponible</p>
-        )}
-        <p><strong>Precio por noche:</strong> ${selectedRoom.precio_noche}</p>
+      <div className="dashboard">
+        <button className="backButton" onClick={() => setSelectedRoom(null)}>Volver</button>
+        <div className="roomDetail">
+          <h2>Habitación {selectedRoom.numero}</h2>
+          <p><strong>Número:</strong> {selectedRoom.numero}</p>
+          <p><strong>Tipo:</strong> {selectedRoom.tipo || 'N/A'}</p>
+          <p><strong>Descripción:</strong> {selectedRoom.descripcion || 'N/A'}</p>
+          <p><strong>Estado:</strong> {selectedRoom.estado}</p>
+          {selectedRoom.imagen_url ? (
+            <img className="roomImage" src={selectedRoom.imagen_url} alt={`Habitación ${selectedRoom.numero}`} />
+          ) : (
+            <p>No hay imagen disponible</p>
+          )}
+          <p><strong>Precio por noche:</strong> ${selectedRoom.precio_noche}</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className="dashboard">
       <h1>Dashboard - Habitaciones del Hotel</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+      {error && <p className="error">{error}</p>}
+      <div className="roomGrid">
         {habitaciones.map((habitacion) => (
           <div
             key={habitacion.id}
-            style={{
-              border: '1px solid #ccc',
-              borderRadius: '8px',
-              padding: '16px',
-              width: '200px',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-              backgroundColor: '#f9f9f9',
-              cursor: 'pointer'
-            }}
+            className="roomCard"
             onClick={() => setSelectedRoom(habitacion)}
           >
             <h3>Habitación {habitacion.numero}</h3>

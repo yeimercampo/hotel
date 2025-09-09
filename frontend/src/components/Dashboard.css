@@ -1,0 +1,50 @@
+.dashboard {
+  padding: 20px;
+}
+
+.backButton {
+  margin-bottom: 20px;
+}
+
+.roomDetail h2 {
+  margin-bottom: 10px;
+}
+
+.roomDetail p {
+  margin-bottom: 8px;
+}
+
+.roomImage {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.roomCard {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  width: 200px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.roomCard h3 {
+  margin-bottom: 8px;
+}
+
+.roomCard p {
+  margin-bottom: 4px;
+}
+
+.error {
+  color: red;
+}
+
+.roomGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}

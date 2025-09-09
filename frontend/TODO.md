@@ -8,3 +8,7 @@
 - [x] Update Dashboard to display rooms as cards with status
 - [x] Add click functionality to show room details
 - [x] Skip tests as per user request
+- [x] Create Header component with menu navigation
+- [x] Create Footer component with copyright
+- [x] Update App.js to include Header and Footer with flex layout
+

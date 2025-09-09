@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Login from './Login';
-import Dashboard from './Dashboard';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './components/Login';
+import Dashboard from './components/Dashboard';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import './App.css';
 
 function App() {
@@ -19,16 +22,23 @@ function App() {
 
   const handleLogout = () => {
     setUsuario(null);
+    localStorage.removeItem('usuario');
   };
 
   return (
-    <div className="App">
-      {usuario ? (
-        <Dashboard usuario={usuario} onLogout={handleLogout} />
-      ) : (
-        <Login onLogin={handleLogin} />
-      )}
-    </div>
+    <Router>
+      <div className="App flex flex-col min-h-screen">
+        {usuario && <Header usuario={usuario} onLogout={handleLogout} />}
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={usuario ? <Dashboard usuario={usuario} /> : <Login onLogin={handleLogin} />} />
+            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            {/* Add more routes here */}
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
