@@ -40,8 +40,6 @@ def eliminar_usuario(id: int, db: Session = Depends(get_db)):
     db.commit()
     return {"ok": True}
 
-from fastapi.middleware.cors import CORSMiddleware
-
 @router.post("/usuarios/login", response_model=UsuarioResponse)
 def login_usuario(login_data: UsuarioLogin, db: Session = Depends(get_db)):
     from backend.models.usuario import Usuario as UsuarioModel
@@ -52,8 +50,3 @@ def login_usuario(login_data: UsuarioLogin, db: Session = Depends(get_db)):
     user_data = db_usuario.__dict__.copy()
     user_data['contrasena'] = None
     return user_data
-
-# Add CORS middleware to allow frontend requests
-# Removed import of app and CORS middleware setup here to avoid circular import
-
-# CORS middleware should be added in backend/main.py instead

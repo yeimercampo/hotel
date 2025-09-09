@@ -7,6 +7,6 @@ class Habitacion(Base):
     numero = Column(String(10), unique=True, nullable=False)
     estado = Column(String(20), nullable=False)  # Ejemplo: disponible, ocupada, mantenimiento
     precio_noche = Column(Float, nullable=False)
-    # tipo = Column(String(50), nullable=True)
-    # descripcion = Column(Text, nullable=True)
-    # foto = Column(Text, nullable=True)  # URL o base64
+    tipo = Column(String(50), nullable=True)
+    descripcion = Column(Text, nullable=True)
+    imagen_url = Column(Text, nullable=True)  # URL o base64
