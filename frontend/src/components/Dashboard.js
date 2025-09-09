@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Dashboard.css';
 
-const Dashboard = () => {
+
+const Dashboard = ({ usuario }) => {
   const [habitaciones, setHabitaciones] = useState([]);
   const [error, setError] = useState('');
   const [selectedRoom, setSelectedRoom] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchHabitaciones = async () => {
@@ -33,6 +36,30 @@ const Dashboard = () => {
     }
   };
 
+  const handleAdd = () => {
+    navigate('/habitacion/nueva');
+  };
+
+  const handleEdit = (room) => {
+    navigate(`/habitacion/editar/${room.id}`, { state: { room } });
+  };
+
+  const handleDelete = async (id) => {
+    if (window.confirm('¿Estás seguro de que quieres eliminar esta habitación?')) {
+      try {
+        await axios.delete(`${process.env.REACT_APP_API_URL}/habitaciones/${id}`);
+        setHabitaciones(habitaciones.filter(h => h.id !== id));
+        setError('');
+      } catch (err) {
+        setError('Error al eliminar la habitación');
+      }
+    }
+  };
+
+
+
+
+
   if (selectedRoom) {
     return (
       <div className="dashboard">
@@ -49,6 +76,12 @@ const Dashboard = () => {
             <p>No hay imagen disponible</p>
           )}
           <p><strong>Precio por noche:</strong> ${selectedRoom.precio_noche}</p>
+          {usuario && usuario.rol === 'administrador' && (
+            <div className="adminButtons" style={{ marginTop: '15px' }}>
+              <button onClick={() => handleEdit(selectedRoom)}>Editar</button>
+              <button onClick={() => handleDelete(selectedRoom.id)}>Borrar</button>
+            </div>
+          )}
         </div>
       </div>
     );
@@ -58,6 +91,9 @@ const Dashboard = () => {
     <div className="dashboard">
       <h1>Dashboard - Habitaciones del Hotel</h1>
       {error && <p className="error">{error}</p>}
+      {usuario && usuario.rol === 'administrador' && (
+        <button className="addRoomButton" onClick={handleAdd}>Añadir Habitación</button>
+      )}
       <div className="roomGrid">
         {habitaciones.map((habitacion) => (
           <div
@@ -70,9 +106,16 @@ const Dashboard = () => {
               Estado: {habitacion.estado}
             </p>
             <p>Precio por noche: ${habitacion.precio_noche}</p>
+            {false && (
+              <div className="adminButtons">
+                <button onClick={(e) => { e.stopPropagation(); handleEdit(habitacion); }}>Editar</button>
+                <button onClick={(e) => { e.stopPropagation(); handleDelete(habitacion.id); }}>Borrar</button>
+              </div>
+            )}
           </div>
         ))}
       </div>
+
     </div>
   );
 };

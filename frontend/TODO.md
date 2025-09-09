@@ -1,14 +1,12 @@
-- [x] Remove @tailwind directives from index.css
-- [x] Update Login.js to remove Tailwind classes and add CSS styles
-- [x] Update postcss.config.js to remove tailwindcss plugin
-- [x] Delete tailwind.config.js
-- [x] Uninstall Tailwind packages from package.json
-- [x] Fix backend habitaciones route import issue
-- [x] Remove foto column from model and schema to match database
-- [x] Update Dashboard to display rooms as cards with status
-- [x] Add click functionality to show room details
-- [x] Skip tests as per user request
-- [x] Create Header component with menu navigation
-- [x] Create Footer component with copyright
-- [x] Update App.js to include Header and Footer with flex layout
+# TODO - Add/Edit/Delete Habitacion Functionality in Dashboard
 
+- [x] Add "Añadir Habitación" button visible only to admin users.
+- [x] Add "Editar" and "Borrar" buttons on each room card visible only to admin users.
+- [x] Implement navigation to separate pages for adding and editing rooms.
+- [x] Implement delete confirmation dialog.
+- [x] Integrate axios calls to backend API for create, update, and delete.
+- [x] Update Dashboard state after each operation to reflect changes.
+- [x] Handle error states and show user feedback.
+- [x] Add routes in App.js for /habitacion/nueva and /habitacion/editar/:id.
+- [x] Use RoomForm component for add/edit pages.
+- [x] Test the functionality with admin user login.
